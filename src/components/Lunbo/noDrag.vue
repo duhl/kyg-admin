@@ -3,7 +3,26 @@
     <div class="board-column-header">
       {{ headerText }}
     </div>
-    <draggable
+    <div class="upload">
+      <el-upload
+        class="upload-demo"
+        action="http://ktfx.hemahenmang.cn/shop/Upload/upload_oss"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :file-list="fileList"
+        list-type="picture"
+      >
+        <el-button
+          size="small"
+          type="primary"
+        >点击上传</el-button>
+        <div
+          slot="tip"
+          class="el-upload__tip"
+        >只能上传jpg/png文件，且不超过500kb</div>
+      </el-upload>
+    </div>
+    <!-- <div
       :list="list"
       v-bind="$attrs"
       class="board-column-content"
@@ -30,22 +49,35 @@
           ></span>
         </div>
       </div>
-    </draggable>
+    </div> -->
   </div>
 </template>
 
 <script>
-import draggable from "vuedraggable";
+// import draggable from "vuedraggable";
+import axios from "axios";
 
 export default {
   name: "DragKanbanDemo",
   data() {
     return {
-      active: null
+      active: null,
+      fileList: [
+        {
+          name: "food.jpeg",
+          url:
+            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+        },
+        {
+          name: "food2.jpeg",
+          url:
+            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+        }
+      ]
     };
   },
   components: {
-    draggable
+    // draggable
   },
   props: {
     headerText: {
@@ -86,6 +118,22 @@ export default {
     },
     handleActive(index) {
       this.active = index;
+    },
+    handleUpload() {
+      axios({
+        method: "post",
+        url: "http://ktfx.hemahenmang.cn/shop/Upload/upload_oss",
+        data: {
+          firstName: "Fred",
+          lastName: "Flintstone"
+        }
+      });
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
     }
   }
 };

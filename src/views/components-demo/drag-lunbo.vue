@@ -16,7 +16,7 @@
       class="lunbo working"
       header-text="Working"
     />
-    <Lunbo
+    <LunboNoDrag
       :key="3"
       :list="list3"
       :group="group"
@@ -27,11 +27,13 @@
 </template>
 <script>
 import Lunbo from "@/components/Lunbo";
+import LunboNoDrag from "@/components/Lunbo/noDrag";
 
 export default {
   name: "DragLunboDemo",
   components: {
-    Lunbo
+    Lunbo,
+    LunboNoDrag
   },
   data() {
     return {
@@ -48,9 +50,9 @@ export default {
         /* { name: "文字", id: 7 } */
       ],
       list3: [
-        /* { name: "Mission", id: 8 },
+        { name: "Mission", id: 8 },
         { name: "Mission", id: 9 },
-        { name: "Mission", id: 10 } */
+        { name: "Mission", id: 10 }
       ]
     };
   },
@@ -67,20 +69,20 @@ export default {
   },
   methods: {
     handleSortUp(index, list) {
-      console.info("upArrow,", index);
+      // console.info("upArrow,", index);
       if (index) {
-        console.info("upArrow-set,", index, list);
-        let curItem = list.splice(index, 1);
-        console.info("upArrow-delete,", curItem);
+        // console.info("upArrow-set,", index, list);
+        const curItem = list.splice(index, 1);
+        // console.info("upArrow-delete,", curItem);
         list.splice(index - 1, 0, ...curItem);
       }
     },
     handleSortDown(index, list) {
-      console.info("downArrow,", index);
+      // console.info("downArrow,", index);
       if (list.length - 1 > index) {
-        console.info("upArrow-set,", index, list);
-        let curItem = list.splice(index, 1);
-        console.info("upArrow-delete,", curItem);
+        // console.info("upArrow-set,", index, list);
+        const curItem = list.splice(index, 1);
+        // console.info("upArrow-delete,", curItem);
         list.splice(index + 1, 0, ...curItem);
       }
     }
