@@ -8,11 +8,11 @@
       v-bind="$attrs"
       class="board-column-content"
       :set-data="setData"
-      :group="{ name: 'lunbo', put: true }"
+      :group="{ name: 'lunbo', pull: 'clone', put: false }"
     >
       <div
         v-for="(element, index) in list"
-        :key="element.id - Math.random()"
+        :key="element.id"
         :class="['board-item', { active: index == active }]"
         @click="onActive(index, element)"
       >
@@ -102,9 +102,6 @@ export default {
         return () => {};
       }
     }
-  },
-  data() {
-    return {};
   },
   methods: {
     setData(dataTransfer) {

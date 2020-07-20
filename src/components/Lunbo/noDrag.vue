@@ -7,49 +7,16 @@
       <el-upload
         class="upload-demo"
         action="/shop/Upload/upload_oss"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
+        :on-success="handleSuccess"
         :file-list="fileList"
         list-type="picture"
       >
-        <el-button
-          size="small"
-          type="primary"
-        >点击上传</el-button>
-        <div
-          slot="tip"
-          class="el-upload__tip"
-        >只能上传jpg/png文件，且不超过500kb</div>
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">
+          只能上传jpg/png文件，且不超过500kb
+        </div>
       </el-upload>
     </div>
-    <!-- <div
-      :list="list"
-      v-bind="$attrs"
-      class="board-column-content"
-      :set-data="setData"
-    >
-      <div
-        v-for="(element,index) in list"
-        :key="element.id"
-        :class="['board-item',{'active':index==active}]"
-        @click="handleActive(index)"
-      >
-        {{ element.name }}
-        <div
-          class="icon"
-          v-if="element.type=='lunbo'"
-        >
-          <span
-            class="el-icon-top"
-            @click="sortUp(index,list) "
-          ></span>
-          <span
-            class="el-icon-bottom"
-            @click="sortDown(index,list) "
-          ></span>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -58,18 +25,24 @@
 // import axios from 'axios'
 
 export default {
-  name: 'DragLunboDemo',
+  name: "DragLunboDemo",
   components: {
     // draggable
   },
   props: {
     headerText: {
       type: String,
-      default: 'Header'
+      default: "Header"
     },
     uploadView: {
       type: Boolean,
       default: false
+    },
+    addLunbo: {
+      type: Function,
+      default() {
+        return () => {};
+      }
     }
   },
   data() {
@@ -83,36 +56,21 @@ export default {
         },
          */
       ]
-    }
+    };
   },
   methods: {
     setData(dataTransfer) {
-      console.info('dataTransfer', dataTransfer)
+      console.info("dataTransfer", dataTransfer);
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-      dataTransfer.setData('Text', '')
+      dataTransfer.setData("Text", "");
     },
-    /* handleActive(index) {
-      this.active = index;
-    }, */
-    /* handleUpload() {
-      axios({
-        method: "post",
-        url: "http://ktfx.hemahenmang.cn/shop/Upload/upload_oss",
-        data: {
-          firstName: "Fred",
-          lastName: "Flintstone"
-        }
-      });
-    }, */
-    handleRemove(file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview(file) {
-      console.log(file)
+    handleSuccess(response) {
+      console.log(response);
+      this.addLunbo({ images: response.data });
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .board-column {
@@ -175,4 +133,3 @@ export default {
   }
 }
 </style>
-
