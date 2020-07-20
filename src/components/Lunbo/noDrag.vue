@@ -3,10 +3,10 @@
     <div class="board-column-header">
       {{ headerText }}
     </div>
-    <div class="upload">
+    <div v-if="uploadView" class="upload">
       <el-upload
         class="upload-demo"
-        action="http://ktfx.hemahenmang.cn/shop/Upload/upload_oss"
+        action="/shop/Upload/upload_oss"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :file-list="fileList"
@@ -55,71 +55,47 @@
 
 <script>
 // import draggable from "vuedraggable";
-import axios from "axios";
+// import axios from 'axios'
 
 export default {
-  name: "DragKanbanDemo",
-  data() {
-    return {
-      active: null,
-      fileList: [
-        {
-          name: "food.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        },
-        {
-          name: "food2.jpeg",
-          url:
-            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
-        }
-      ]
-    };
-  },
+  name: 'DragLunboDemo',
   components: {
     // draggable
   },
   props: {
     headerText: {
       type: String,
-      default: "Header"
+      default: 'Header'
     },
-    options: {
-      type: Object,
-      default() {
-        return {};
-      }
-    },
-    list: {
-      type: Array,
-      default() {
-        return [];
-      }
-    },
-    sortUp: {
-      type: Function,
-      default() {
-        return () => {};
-      }
-    },
-    sortDown: {
-      type: Function,
-      default() {
-        return () => {};
-      }
+    uploadView: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      /* active: null, */
+      fileList: [
+        /* {
+          name: "food.jpeg",
+          url:
+            "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100"
+        },
+         */
+      ]
     }
   },
   methods: {
     setData(dataTransfer) {
-      console.info("dataTransfer", dataTransfer);
+      console.info('dataTransfer', dataTransfer)
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-      dataTransfer.setData("Text", "");
+      dataTransfer.setData('Text', '')
     },
-    handleActive(index) {
+    /* handleActive(index) {
       this.active = index;
-    },
-    handleUpload() {
+    }, */
+    /* handleUpload() {
       axios({
         method: "post",
         url: "http://ktfx.hemahenmang.cn/shop/Upload/upload_oss",
@@ -128,15 +104,15 @@ export default {
           lastName: "Flintstone"
         }
       });
-    },
+    }, */
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      console.log(file, fileList)
     },
     handlePreview(file) {
-      console.log(file);
+      console.log(file)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .board-column {

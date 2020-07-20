@@ -37,16 +37,21 @@ module.exports = {
       errors: true
     },
     proxy: {
-      [process.env.VUE_APP_BASE_API]: {
+      /* [process.env.VUE_APP_BASE_API]: {
         target: `http://ktfx.hemahenmang.cn`,
         changeOrigin: true,
         pathRewrite: {
           ["^" + process.env.VUE_APP_BASE_API]: ""
         }
+      }, */
+      "/shop": {
+        target: "http://ktfx.hemahenmang.cn",
+        changeOrigin: true
       }
     },
-    before: require("./mock/mock-server.js")
-    // after: require('./mock/mock-server.js')
+
+    // before: require("./mock/mock-server.js")
+    after: require("./mock/mock-server.js")
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
