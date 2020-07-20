@@ -13,21 +13,21 @@
         v-for="(element,index) in list"
         :key="element.id"
         :class="['board-item',{'active':index==active}]"
-        @click="handleActive(index)"
+        @click="onActive(index,element)"
       >
         {{ element.name }}
         <div
-          class="icon"
           v-if="element.type=='lunbo'"
+          class="icon"
         >
           <span
             class="el-icon-top"
             @click="sortUp(index,list) "
-          ></span>
+          />
           <span
             class="el-icon-bottom"
             @click="sortDown(index,list) "
-          ></span>
+          />
         </div>
       </div>
     </draggable>
@@ -35,60 +35,68 @@
 </template>
 
 <script>
-import draggable from "vuedraggable";
+import draggable from 'vuedraggable'
 
 export default {
-  name: "DragKanbanDemo",
-  data() {
-    return {
-      active: null
-    };
-  },
+  name: 'DragKanbanDemo',
   components: {
     draggable
   },
   props: {
     headerText: {
       type: String,
-      default: "Header"
+      default: 'Header'
+    },
+    active: {
+      type: Number,
+      default: null
     },
     options: {
       type: Object,
       default() {
-        return {};
+        return {}
       }
     },
     list: {
       type: Array,
       default() {
-        return [];
+        return []
       }
     },
     sortUp: {
       type: Function,
       default() {
-        return () => {};
+        return () => {}
       }
     },
     sortDown: {
       type: Function,
       default() {
-        return () => {};
+        return () => {}
       }
+    },
+    onActive: {
+      type: Function,
+      default() {
+        return () => {}
+      }
+    }
+  },
+  data() {
+    return {
+
     }
   },
   methods: {
     setData(dataTransfer) {
-      console.info("dataTransfer", dataTransfer);
+      console.info('dataTransfer', dataTransfer)
       // to avoid Firefox bug
       // Detail see : https://github.com/RubaXa/Sortable/issues/1012
-      dataTransfer.setData("Text", "");
-    },
-    handleActive(index) {
-      this.active = index;
+      dataTransfer.setData('Text', '')
     }
+
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .board-column {
@@ -146,7 +154,7 @@ export default {
       }
     }
     .board-item.active {
-      border: 1px solid red;
+      // border: 1px solid red;
     }
   }
 }
