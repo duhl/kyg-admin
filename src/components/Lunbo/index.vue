@@ -8,7 +8,7 @@
       v-bind="$attrs"
       class="board-column-content"
       :set-data="setData"
-      :group="{ name: 'lunbo', put: true }"
+      :group="{ name: 'lunbo' }"
     >
       <div
         v-for="(element, index) in list"
